@@ -247,16 +247,16 @@ def converting_router(app: Flask, auth: HTTPBasicAuth):
                 #marker.stop()
                 #ft.print()
                 return result
-        return jsonify({'error': error_msg}), 400
+        return jsonify({'message': error_msg}), 400
 
     def _run_conversion(converter, file):
         conversion_format = request.form.get('format', 'jcampzip')
         try:
             writer = run_conversion(converter, conversion_format)
         except AssertionError as e:
-            return jsonify({'error': 'There was an error while converting your file.'}), 400
+            return jsonify({'message': 'There was an error while converting your file.'}), 400
         except ValueError as e:
-            return jsonify({'error': e.__str__()}), 400
+            return jsonify({'message': e.__str__()}), 400
 
         file_name = Path(file.name).with_suffix(writer.suffix)
 
